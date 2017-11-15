@@ -1,11 +1,11 @@
-# bbuf
+# bufio
 
 Buffer and serialization utilities for javascript.
 
 ## Usage
 
 ``` js
-const bbuf = require('bbuf');
+const bio = require('bufio');
 ```
 
 ## Contribution and License Agreement

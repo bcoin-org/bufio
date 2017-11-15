@@ -31,7 +31,7 @@ const signed = [
   new I64(1).ineg()
 ];
 
-describe('bbuf', function() {
+describe('bufio', function() {
   it('should write/read new varints', () => {
     /*
      * 0:         [0x00]  256:        [0x81 0x00]

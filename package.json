@@ -1,5 +1,5 @@
 {
-  "name": "bbuf",
+  "name": "bufio",
   "version": "0.0.0",
   "description": "Buffer and serialization utilities for javascript",
   "keywords": [
@@ -7,16 +7,16 @@
     "serialization"
   ],
   "license": "MIT",
-  "repository": "git://github.com/bcoin-org/bbuf.git",
-  "homepage": "https://github.com/bcoin-org/bbuf",
+  "repository": "git://github.com/bcoin-org/bufio.git",
+  "homepage": "https://github.com/bcoin-org/bufio",
   "bugs": {
-    "url": "https://github.com/bcoin-org/bbuf/issues"
+    "url": "https://github.com/bcoin-org/bufio/issues"
   },
   "author": "Christopher Jeffrey <chjjeffrey@gmail.com>",
-  "main": "./lib/bbuf.js",
+  "main": "./lib/bufio.js",
   "scripts": {
-    "browserify": "browserify -s bbuf lib/bbuf.js | uglifyjs -c > bbuf.js",
-    "clean": "rm -f bbuf.js",
+    "browserify": "browserify -s bufio lib/bufio.js | uglifyjs -c > bufio.js",
+    "clean": "rm -f bufio.js",
     "lint": "eslint lib/ test/ || exit 0",
     "test": "mocha --reporter spec test/*-test.js",
     "webpack": "webpack --config webpack.config.js"
