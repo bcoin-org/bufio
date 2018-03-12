@@ -18,6 +18,49 @@ assert(br.readU64() === 100);
 assert(br.readString('ascii') === 'foo');
 ```
 
+## Struct Usage
+
+``` js
+const bio = require('bufio');
+
+class MyStruct extends bio.Struct {
+  constructor() {
+    super();
+    this.str = 'hello';
+    this.value = 0;
+  }
+
+  write(bw) {
+    bw.writeVarString(this.str, 'ascii');
+    bw.writeU64(this.value);
+    return this;
+  }
+
+  read(br) {
+    this.str = br.readVarString('ascii');
+    this.value = br.readU64();
+    return this;
+  }
+}
+
+const obj = new MyStruct();
+
+console.log('Buffer:');
+console.log(obj.encode());
+
+console.log('Decoded:');
+console.log(MyStruct.decode(obj.encode()));
+
+console.log('Hex:');
+console.log(obj.toHex());
+
+console.log('Decoded:');
+console.log(MyStruct.fromHex(obj.toHex()));
+
+console.log('Base64:');
+console.log(obj.toBase64());
+```
+
 ## Contribution and License Agreement
 
 If you contribute code to this project, you are implicitly allowing your code
