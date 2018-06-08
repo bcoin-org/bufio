@@ -99,17 +99,13 @@ describe('bufio', function() {
     const bits = num.bitLength();
 
     it(`should write+read a ${bits} bit unsigned int`, () => {
-      const buf1 = Buffer.allocUnsafe(8);
       const buf2 = Buffer.allocUnsafe(8);
 
-      encoding.writeU64N(buf1, num, 0);
       encoding.writeU64(buf2, num.toNumber(), 0);
-      assert.bufferEqual(buf1, buf2);
 
-      const n1 = encoding.readU64N(buf1, 0);
       const n2 = encoding.readU64(buf2, 0);
 
-      assert.strictEqual(n1.toNumber(), n2);
+      assert.strictEqual(num.toNumber(), n2);
     });
   }
 
@@ -118,34 +114,25 @@ describe('bufio', function() {
     const sign = num.isNeg() ? 'negative' : 'positive';
 
     it(`should write+read a ${bits} bit ${sign} int`, () => {
-      const buf1 = Buffer.allocUnsafe(8);
       const buf2 = Buffer.allocUnsafe(8);
 
-      encoding.writeI64N(buf1, num, 0);
       encoding.writeI64(buf2, num.toNumber(), 0);
-      assert.bufferEqual(buf1, buf2);
 
-      const n1 = encoding.readI64N(buf1, 0);
       const n2 = encoding.readI64(buf2, 0);
 
-      assert.strictEqual(n1.toNumber(), n2);
+      assert.strictEqual(num.toNumber(), n2);
     });
 
     it(`should write+read a ${bits} bit ${sign} int as unsigned`, () => {
-      const buf1 = Buffer.allocUnsafe(8);
       const buf2 = Buffer.allocUnsafe(8);
 
-      encoding.writeU64N(buf1, num.toU64(), 0);
       encoding.writeU64(buf2, num.toNumber(), 0);
-      assert.bufferEqual(buf1, buf2);
-
-      const n1 = encoding.readU64N(buf1, 0);
 
       if (num.isNeg()) {
         assert.throws(() => encoding.readU64(buf2, 0));
       } else {
         const n2 = encoding.readU64(buf2, 0);
-        assert.strictEqual(n1.toNumber(), n2);
+        assert.strictEqual(num.toNumber(), n2);
       }
     });
   }
