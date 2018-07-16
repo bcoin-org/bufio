@@ -40,6 +40,9 @@
   "engines": {
     "node": ">=8.0.0"
   },
+  "browser": {
+    "./lib/custom": "./lib/custom-browser.js"
+  },
   "browserify": {
     "transform": [
       "babelify"
