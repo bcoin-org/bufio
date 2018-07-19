@@ -10,12 +10,12 @@ const bio = require('bufio');
 
 const bw = bio.write();
 bw.writeU64(100);
-bw.writeString('foo', 'ascii');
+bw.writeString('foo');
 const data = bw.render();
 
 const br = bio.read(data);
 assert(br.readU64() === 100);
-assert(br.readString('ascii') === 'foo');
+assert(br.readString(3) === 'foo');
 ```
 
 ## Struct Usage
