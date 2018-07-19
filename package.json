@@ -15,11 +15,8 @@
   "author": "Christopher Jeffrey <chjjeffrey@gmail.com>",
   "main": "./lib/bufio.js",
   "scripts": {
-    "browserify": "browserify -s bufio lib/bufio.js | uglifyjs -c > bufio.js",
-    "clean": "rm -f bufio.js",
     "lint": "eslint lib/ test/ || exit 0",
-    "test": "mocha --reporter spec test/*-test.js",
-    "webpack": "webpack --mode production --config webpack.config.js"
+    "test": "mocha --reporter spec test/*-test.js"
   },
   "devDependencies": {
     "eslint": "^5.1.0",
