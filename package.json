@@ -19,9 +19,8 @@
     "test": "mocha --reporter spec test/*-test.js"
   },
   "devDependencies": {
-    "eslint": "^5.1.0",
     "mocha": "^5.2.0",
-    "n64": "~0.2.1"
+    "n64": "~0.2.2"
   },
   "engines": {
     "node": ">=8.0.0"
