@@ -16,10 +16,10 @@
   "main": "./lib/bufio.js",
   "scripts": {
     "lint": "eslint lib/ test/ || exit 0",
-    "test": "mocha --reporter spec test/*-test.js"
+    "test": "bmocha --reporter spec test/*-test.js"
   },
   "devDependencies": {
-    "mocha": "^5.2.0"
+    "bmocha": "^0.1.0"
   },
   "engines": {
     "node": ">=8.0.0"
