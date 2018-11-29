@@ -19,8 +19,7 @@
     "test": "mocha --reporter spec test/*-test.js"
   },
   "devDependencies": {
-    "mocha": "^5.2.0",
-    "n64": "~0.2.2"
+    "mocha": "^5.2.0"
   },
   "engines": {
     "node": ">=8.0.0"

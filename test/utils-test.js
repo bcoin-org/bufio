@@ -4,31 +4,120 @@
 'use strict';
 
 const assert = require('./util/assert');
-const {U64, I64} = require('n64');
 const encoding = require('../lib/encoding');
 
 const unsigned = [
-  new U64('ffeeffee', 16),
-  new U64('001fffeeffeeffee', 16),
-  new U64('eeffeeff', 16),
-  new U64('001feeffeeffeeff', 16),
-  new U64(0),
-  new U64(1)
+  [
+    32,
+    false,
+    4293853166,
+    'eeffeeff00000000'
+  ],
+  [
+    53,
+    false,
+    9007126239182830,
+    'eeffeeffeeff1f00'
+  ],
+  [
+    32,
+    false,
+    4009750271,
+    'ffeeffee00000000'
+  ],
+  [
+    53,
+    false,
+    8988507271851775,
+    'ffeeffeeffee1f00'
+  ],
+  [
+    0,
+    false,
+    0,
+    '0000000000000000'
+  ],
+  [
+    1,
+    false,
+    1,
+    '0100000000000000'
+  ]
 ];
 
 const signed = [
-  new I64('ffeeffee', 16),
-  new I64('001fffeeffeeffee', 16),
-  new I64('eeffeeff', 16),
-  new I64('001feeffeeffeeff', 16),
-  new I64(0),
-  new I64(1),
-  new I64('ffeeffee', 16).ineg(),
-  new I64('001fffeeffeeffee', 16).ineg(),
-  new I64('eeffeeff', 16).ineg(),
-  new I64('001feeffeeffeeff', 16).ineg(),
-  new I64(0).ineg(),
-  new I64(1).ineg()
+  [
+    32,
+    false,
+    4293853166,
+    'eeffeeff00000000'
+  ],
+  [
+    53,
+    false,
+    9007126239182830,
+    'eeffeeffeeff1f00'
+  ],
+  [
+    32,
+    false,
+    4009750271,
+    'ffeeffee00000000'
+  ],
+  [
+    53,
+    false,
+    8988507271851775,
+    'ffeeffeeffee1f00'
+  ],
+  [
+    0,
+    false,
+    0,
+    '0000000000000000'
+  ],
+  [
+    1,
+    false,
+    1,
+    '0100000000000000'
+  ],
+  [
+    32,
+    true,
+    -4293853166,
+    '12001100ffffffff'
+  ],
+  [
+    53,
+    true,
+    -9007126239182830,
+    '120011001100e0ff'
+  ],
+  [
+    32,
+    true,
+    -4009750271,
+    '01110011ffffffff'
+  ],
+  [
+    53,
+    true,
+    -8988507271851775,
+    '011100110011e0ff'
+  ],
+  [
+    0,
+    false,
+    0,
+    '0000000000000000'
+  ],
+  [
+    1,
+    true,
+    -1,
+    'ffffffffffffffff'
+  ]
 ];
 
 describe('bufio', function() {
@@ -95,44 +184,41 @@ describe('bufio', function() {
     assert.deepEqual(b, [0x8e, 0xfe, 0xfe, 0xff, 0x00]);
   });
 
-  for (const num of unsigned) {
-    const bits = num.bitLength();
-
+  for (const [bits, , num] of unsigned) {
     it(`should write+read a ${bits} bit unsigned int`, () => {
       const buf2 = Buffer.allocUnsafe(8);
 
-      encoding.writeU64(buf2, num.toNumber(), 0);
+      encoding.writeU64(buf2, num, 0);
 
       const n2 = encoding.readU64(buf2, 0);
 
-      assert.strictEqual(num.toNumber(), n2);
+      assert.strictEqual(num, n2);
     });
   }
 
-  for (const num of signed) {
-    const bits = num.bitLength();
-    const sign = num.isNeg() ? 'negative' : 'positive';
+  for (const [bits, neg, num] of signed) {
+    const sign = neg ? 'negative' : 'positive';
 
     it(`should write+read a ${bits} bit ${sign} int`, () => {
       const buf2 = Buffer.allocUnsafe(8);
 
-      encoding.writeI64(buf2, num.toNumber(), 0);
+      encoding.writeI64(buf2, num, 0);
 
       const n2 = encoding.readI64(buf2, 0);
 
-      assert.strictEqual(num.toNumber(), n2);
+      assert.strictEqual(num, n2);
     });
 
     it(`should write+read a ${bits} bit ${sign} int as unsigned`, () => {
       const buf2 = Buffer.allocUnsafe(8);
 
-      encoding.writeU64(buf2, num.toNumber(), 0);
+      encoding.writeU64(buf2, num, 0);
 
-      if (num.isNeg()) {
+      if (neg) {
         assert.throws(() => encoding.readU64(buf2, 0));
       } else {
         const n2 = encoding.readU64(buf2, 0);
-        assert.strictEqual(num.toNumber(), n2);
+        assert.strictEqual(num, n2);
       }
     });
   }
