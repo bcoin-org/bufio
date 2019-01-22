@@ -1,6 +1,6 @@
 {
   "name": "bufio",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Buffer and serialization utilities for javascript",
   "keywords": [
     "buffer",
@@ -19,7 +19,7 @@
     "test": "bmocha --reporter spec test/*-test.js"
   },
   "devDependencies": {
-    "bmocha": "^0.1.0"
+    "bmocha": "^1.0.0"
   },
   "engines": {
     "node": ">=8.0.0"
