@@ -186,7 +186,7 @@ describe('bufio', function() {
 
   for (const [bits, , num] of unsigned) {
     it(`should write+read a ${bits} bit unsigned int`, () => {
-      const buf2 = Buffer.allocUnsafe(8);
+      const buf2 = Buffer.alloc(8);
 
       encoding.writeU64(buf2, num, 0);
 
@@ -200,7 +200,7 @@ describe('bufio', function() {
     const sign = neg ? 'negative' : 'positive';
 
     it(`should write+read a ${bits} bit ${sign} int`, () => {
-      const buf2 = Buffer.allocUnsafe(8);
+      const buf2 = Buffer.alloc(8);
 
       encoding.writeI64(buf2, num, 0);
 
@@ -210,7 +210,7 @@ describe('bufio', function() {
     });
 
     it(`should write+read a ${bits} bit ${sign} int as unsigned`, () => {
-      const buf2 = Buffer.allocUnsafe(8);
+      const buf2 = Buffer.alloc(8);
 
       encoding.writeU64(buf2, num, 0);
 
@@ -224,46 +224,58 @@ describe('bufio', function() {
   }
 
   it('should write+read a 128 bit bigint little endian', () => {
-    const num = 2n ** 127n + 63542n
+    if (typeof BigInt !== 'function')
+      this.skip();
 
-    const buf = Buffer.allocUnsafe(16);
+    const num = (BigInt(1) << BigInt(127)) + BigInt(63542);
+
+    const buf = Buffer.alloc(16);
 
     encoding.writeBigU128(buf, num, 0);
 
     const n2 = encoding.readBigU128(buf, 0);
     assert.strictEqual(num, n2);
-  })
+  });
 
   it('should write+read a 128 bit bigint big endian', () => {
-    const num = 2n ** 127n + 43523n
+    if (typeof BigInt !== 'function')
+      this.skip();
 
-    const buf = Buffer.allocUnsafe(16);
+    const num = (BigInt(1) << BigInt(127)) + BigInt(43523);
+
+    const buf = Buffer.alloc(16);
 
     encoding.writeBigU128BE(buf, num, 0);
 
     const n2 = encoding.readBigU128BE(buf, 0);
     assert.strictEqual(num, n2);
-  })
+  });
 
   it('should write+read a 256 bit bigint little endian', () => {
-    const num = 2n ** 255n + 2348932n
+    if (typeof BigInt !== 'function')
+      this.skip();
 
-    const buf = Buffer.allocUnsafe(32);
+    const num = (BigInt(1) << BigInt(255)) + BigInt(2348932);
+
+    const buf = Buffer.alloc(32);
 
     encoding.writeBigU256(buf, num, 0);
 
     const n2 = encoding.readBigU256(buf, 0);
     assert.strictEqual(num, n2);
-  })
+  });
 
   it('should write+read a 256 bit bigint big endian', () => {
-    const num = 2n ** 255n + 454523n
+    if (typeof BigInt !== 'function')
+      this.skip();
 
-    const buf = Buffer.allocUnsafe(32);
+    const num = (BigInt(1) << BigInt(255)) + BigInt(454523);
+
+    const buf = Buffer.alloc(32);
 
     encoding.writeBigU256BE(buf, num, 0);
 
     const n2 = encoding.readBigU256BE(buf, 0);
     assert.strictEqual(num, n2);
-  })
+  });
 });
