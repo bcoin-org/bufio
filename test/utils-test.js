@@ -222,4 +222,48 @@ describe('bufio', function() {
       }
     });
   }
+
+  it('should write+read a 128 bit bigint little endian', () => {
+    const num = 2n ** 127n + 63542n
+
+    const buf = Buffer.allocUnsafe(16);
+
+    encoding.writeBigU128(buf, num, 0);
+
+    const n2 = encoding.readBigU128(buf, 0);
+    assert.strictEqual(num, n2);
+  })
+
+  it('should write+read a 128 bit bigint big endian', () => {
+    const num = 2n ** 127n + 43523n
+
+    const buf = Buffer.allocUnsafe(16);
+
+    encoding.writeBigU128BE(buf, num, 0);
+
+    const n2 = encoding.readBigU128BE(buf, 0);
+    assert.strictEqual(num, n2);
+  })
+
+  it('should write+read a 256 bit bigint little endian', () => {
+    const num = 2n ** 255n + 2348932n
+
+    const buf = Buffer.allocUnsafe(32);
+
+    encoding.writeBigU256(buf, num, 0);
+
+    const n2 = encoding.readBigU256(buf, 0);
+    assert.strictEqual(num, n2);
+  })
+
+  it('should write+read a 256 bit bigint big endian', () => {
+    const num = 2n ** 255n + 454523n
+
+    const buf = Buffer.allocUnsafe(32);
+
+    encoding.writeBigU256BE(buf, num, 0);
+
+    const n2 = encoding.readBigU256BE(buf, 0);
+    assert.strictEqual(num, n2);
+  })
 });
