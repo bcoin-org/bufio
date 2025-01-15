@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "bmocha": "^2.2.1",
-    "bslint-extra": "^0.0.2",
+    "bslintrc": "^0.0.3",
     "bts-type-deps": "^0.0.3"
   },
   "engines": {
