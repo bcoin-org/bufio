@@ -1,6 +1,6 @@
 {
   "name": "bufio",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Buffer and serialization utilities for javascript",
   "keywords": [
     "buffer",
